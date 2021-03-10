@@ -38,6 +38,9 @@ Shader "Custom/PhongRimlight"
                 half3 reflectedLight = reflect(-lightDir, s.Normal);
                 half RdotV = max(0,dot(reflectedLight, viewDir));
                 half3 specularity = pow(RdotV, _SpecularGloss/_GlossSteps) * _SpecularPower * _SpecularColor.rgb;
+
+                half diff = NdotL * _FallOff + _FallOff;
+
                 half4 c;
                 c.rgb = (NdotL * s.Albedo + specularity) * _LightColor0.rgb * atten;
                 c.a = s.Alpha;
